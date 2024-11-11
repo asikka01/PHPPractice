@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fibonacci Sequence</title>
+        <style>
+                body {
+                        font-family: Arial, sans-serif;
+                        padding: 20px;
+                }
+
+                input {
+                        padding: 5px;
+                        margin-right: 10px;
+                }
+                
+                .result {
+                        margin-top: 20px;
+                }
+        </style>
+</head>
+<body>
+        <h2>Get Fibonacci Sequence</h2>
+        <input type="number" id="number" placeholder="Enter a number">
+        <button onclick="fetchFibonacci()">Get Sequence</button>
+        <div class="result" id="result"></div>
+
+        <script>
+                function fetchFibonacci() {
+                        const number = document.getElementById('number').value;
+                        const resultDiv = document.getElementById('result');
+
+                        fetch(`fibapi.php?number=${number}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                        const sequence = data.data.join(', ');
+                                        resultDiv.innerHTML = `<strong>Fibonacci Sequence:</strong> ${sequence}`;
+                                })
+                                .catch(error => {
+                                        resultDiv.innerHTML = 'Failed to fetch Fibonacci sequence.';
+                                        console.error('Error:', error);
+                                });
+                }
+        </script>
+</body>
+</html>
